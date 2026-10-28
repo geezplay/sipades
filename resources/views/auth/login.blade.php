@@ -78,35 +78,29 @@
             margin: 0;
         }
 
-        .demo-box {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: #f8fafc;
-            border: 1px dashed var(--border-color);
-            border-radius: var(--radius-md);
-            font-size: 0.78rem;
-            color: var(--text-secondary);
+    </style>
+    <style>
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
-
-        .demo-box strong {
-            color: var(--header-navy);
-            display: block;
-            margin-bottom: 0.35rem;
-        }
-
-        .demo-pill {
+        .password-toggle-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
             cursor: pointer;
-            padding: 0.2rem 0.5rem;
-            background: #e2e8f0;
-            border-radius: 4px;
-            margin: 0.15rem 0.15rem;
-            display: inline-block;
-            font-family: monospace;
-            font-size: 0.75rem;
-            transition: background 0.15s;
+            color: var(--text-muted);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: color 0.15s ease;
         }
-        .demo-pill:hover {
-            background: #cbd5e1;
+        .password-toggle-btn:hover {
+            color: var(--accent-primary);
         }
     </style>
 </head>
@@ -168,13 +162,23 @@
                             Kata Sandi <span style="color: #dc2626;">*</span>
                         </label>
                     </div>
-                    <input type="password" 
-                           id="password" 
-                           name="password" 
-                           class="form-control" 
-                           placeholder="Masukkan kata sandi" 
-                           required
-                           style="width: 100%; padding: 0.7rem 0.9rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem;">
+                    <div class="password-wrapper">
+                        <input type="password" 
+                               id="password" 
+                               name="password" 
+                               class="form-control" 
+                               placeholder="Masukkan kata sandi" 
+                               required
+                               style="width: 100%; padding: 0.7rem 2.5rem 0.7rem 0.9rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem;">
+                        <button type="button" 
+                                class="password-toggle-btn" 
+                                id="togglePasswordBtn" 
+                                onclick="togglePasswordVisibility()" 
+                                title="Tampilkan / Sembunyikan Kata Sandi"
+                                aria-label="Tampilkan / Sembunyikan Kata Sandi">
+                            <i class="fas fa-eye" id="togglePasswordIcon"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; font-size: 0.85rem;">
@@ -188,35 +192,23 @@
                     <i class="fas fa-arrow-right-to-bracket"></i> Masuk
                 </button>
             </form>
-
-            <div style="text-align: center; margin: 1.25rem 0; position: relative;">
-                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 0;">
-                <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #ffffff; padding: 0 0.75rem; font-size: 0.75rem; color: var(--text-muted);">
-                    ATAU
-                </span>
-            </div>
-
-            <a href="{{ Route::has('register') ? route('register') : url('/register') }}" 
-               class="btn btn-outline btn-block" 
-               style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 8px; color: var(--header-navy); font-weight: 600; font-size: 0.9rem; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #ffffff;">
-                <i class="fas fa-user-plus"></i> Daftar Akun Warga Baru
-            </a>
-
-            <!-- Quick Demo Helper -->
-            <div class="demo-box">
-                <strong><i class="fas fa-key"></i> Akun Pengujian Resmi:</strong>
-                <div>Admin: <span class="demo-pill" onclick="fillForm('admin@sipades.go.id', 'Admin123!')">admin@sipades.go.id</span></div>
-                <div>Petugas: <span class="demo-pill" onclick="fillForm('petugas@sipades.go.id', 'Petugas123!')">petugas@sipades.go.id</span></div>
-                <div>Kades: <span class="demo-pill" onclick="fillForm('kades@sipades.go.id', 'Kades123!')">kades@sipades.go.id</span></div>
-                <div>Warga: <span class="demo-pill" onclick="fillForm('warga@sipades.go.id', 'Warga123!')">warga@sipades.go.id</span></div>
-            </div>
         </div>
     </div>
 
     <script>
-        function fillForm(email, pass) {
-            document.getElementById('email').value = email;
-            document.getElementById('password').value = pass;
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePasswordIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
         }
     </script>
 </body>
