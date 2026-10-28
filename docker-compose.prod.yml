@@ -1,0 +1,74 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: sipades_prod_db
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    env_file:
+      - .env.production
+    volumes:
+      - mysql_prod_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - sipades_net
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sipades_prod_app
+    restart: always
+    env_file:
+      - .env.production
+    volumes:
+      - .:/var/www/html
+      - storage_prod_data:/var/www/html/storage
+    depends_on:
+      db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - sipades_net
+
+  web:
+    image: nginx:alpine
+    container_name: sipades_prod_web
+    restart: always
+    ports:
+      - "${APP_PORT:-8000}:80"
+    volumes:
+      - .:/var/www/html:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - sipades_net
+
+volumes:
+  mysql_prod_data:
+    driver: local
+  storage_prod_data:
+    driver: local
+
+networks:
+  sipades_net:
+    driver: bridge

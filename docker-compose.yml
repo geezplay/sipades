@@ -1,0 +1,73 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: sipades_db
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_DATABASE: sipades_db
+      MYSQL_USER: sipades_user
+      MYSQL_PASSWORD: sipades_password
+      MYSQL_ROOT_PASSWORD: sipades_root_secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    networks:
+      - sipades_net
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sipades_app
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_NAME: "SIPADES"
+      APP_ENV: local
+      APP_KEY: "base64:/8U4S1uBmo/I4HJYEyXsftFZloV8kpnPgc15633Q1Mo="
+      APP_DEBUG: "true"
+      APP_URL: "http://localhost:8000"
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: sipades_db
+      DB_USERNAME: sipades_user
+      DB_PASSWORD: sipades_password
+      SESSION_DRIVER: database
+      FILESYSTEM_DISK: local
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - sipades_net
+
+  web:
+    image: nginx:alpine
+    container_name: sipades_web
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - sipades_net
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  sipades_net:
+    driver: bridge

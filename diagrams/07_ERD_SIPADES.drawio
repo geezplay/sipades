@@ -1,0 +1,145 @@
+<mxfile host="app.diagrams.net" modified="2026-10-15T07:00:00.000Z" agent="Antigravity-IDE" version="21.0.0">
+  <diagram name="ERD SIPADES" id="erd-sipades">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageWidth="1800" pageHeight="1200">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+
+        <!-- TITLE -->
+        <mxCell id="ttl" value="ENTITY RELATIONSHIP DIAGRAM (ERD) — DATABASE SIPADES" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=16;fontStyle=1;fontColor=#1e3a5f;" vertex="1" parent="1"><mxGeometry x="400" y="20" width="1000" height="35" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: USERS ==================== -->
+        <mxCell id="users" value="USERS" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="700" y="80" width="200" height="195" as="geometry"/></mxCell>
+        <mxCell id="u1" value="PK  id_user : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;fontSize=10;" vertex="1" parent="users"><mxGeometry y="30" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="u2" value="     nama : VARCHAR(100)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="users"><mxGeometry y="55" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="u3" value="     email : VARCHAR(100) UNIQUE" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="users"><mxGeometry y="80" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="u4" value="     password : VARCHAR(255)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="users"><mxGeometry y="105" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="u5" value="     role : ENUM" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="users"><mxGeometry y="130" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="u6" value="     created_at : DATETIME" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="users"><mxGeometry y="155" width="200" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: MASYARAKAT ==================== -->
+        <mxCell id="masyarakat" value="MASYARAKAT" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="200" y="80" width="200" height="170" as="geometry"/></mxCell>
+        <mxCell id="m1" value="PK  id_masyarakat : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="masyarakat"><mxGeometry y="30" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="m2" value="FK  id_user : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="masyarakat"><mxGeometry y="55" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="m3" value="     nik : VARCHAR(16) UNIQUE" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="masyarakat"><mxGeometry y="80" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="m4" value="     alamat : TEXT" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="masyarakat"><mxGeometry y="105" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="m5" value="     no_hp : VARCHAR(20)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="masyarakat"><mxGeometry y="130" width="200" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: PETUGAS ==================== -->
+        <mxCell id="petugas" value="PETUGAS" style="swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1200" y="80" width="200" height="120" as="geometry"/></mxCell>
+        <mxCell id="pt1" value="PK  id_petugas : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="petugas"><mxGeometry y="30" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="pt2" value="FK  id_user : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="petugas"><mxGeometry y="55" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="pt3" value="     jabatan : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="petugas"><mxGeometry y="80" width="200" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: KEPALA_DESA_LURAH ==================== -->
+        <mxCell id="kades" value="KEPALA_DESA_LURAH" style="swimlane;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1200" y="380" width="200" height="120" as="geometry"/></mxCell>
+        <mxCell id="kd1" value="PK  id_pimpinan : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="kades"><mxGeometry y="30" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="kd2" value="FK  id_user : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="kades"><mxGeometry y="55" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="kd3" value="     jabatan : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="kades"><mxGeometry y="80" width="200" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: JENIS_PELAYANAN ==================== -->
+        <mxCell id="jenis" value="JENIS_PELAYANAN" style="swimlane;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="200" y="380" width="200" height="170" as="geometry"/></mxCell>
+        <mxCell id="jp1" value="PK  id_pelayanan : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="jenis"><mxGeometry y="30" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="jp2" value="     nama_pelayanan : VARCHAR(100)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="jenis"><mxGeometry y="55" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="jp3" value="     deskripsi : TEXT" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="jenis"><mxGeometry y="80" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="jp4" value="     persyaratan : TEXT" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="jenis"><mxGeometry y="105" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="jp5" value="     formulir_schema : JSON" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="jenis"><mxGeometry y="130" width="200" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: PENGAJUAN ==================== -->
+        <mxCell id="pengajuan" value="PENGAJUAN" style="swimlane;startSize=30;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="680" y="380" width="240" height="220" as="geometry"/></mxCell>
+        <mxCell id="pg1" value="PK  id_pengajuan : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="pengajuan"><mxGeometry y="30" width="240" height="25" as="geometry"/></mxCell>
+        <mxCell id="pg2" value="FK  id_masyarakat : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="pengajuan"><mxGeometry y="55" width="240" height="25" as="geometry"/></mxCell>
+        <mxCell id="pg3" value="FK  id_pelayanan : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="pengajuan"><mxGeometry y="80" width="240" height="25" as="geometry"/></mxCell>
+        <mxCell id="pg4" value="     tanggal_pengajuan : DATETIME" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="pengajuan"><mxGeometry y="105" width="240" height="25" as="geometry"/></mxCell>
+        <mxCell id="pg5" value="     status : ENUM" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="pengajuan"><mxGeometry y="130" width="240" height="25" as="geometry"/></mxCell>
+        <mxCell id="pg6" value="     catatan_revisi : TEXT" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="pengajuan"><mxGeometry y="155" width="240" height="25" as="geometry"/></mxCell>
+        <mxCell id="pg7" value="     data_formulir : JSON" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="pengajuan"><mxGeometry y="180" width="240" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: DOKUMEN ==================== -->
+        <mxCell id="dokumen" value="DOKUMEN" style="swimlane;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="450" y="700" width="200" height="170" as="geometry"/></mxCell>
+        <mxCell id="dk1" value="PK  id_dokumen : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="dokumen"><mxGeometry y="30" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="dk2" value="FK  id_pengajuan : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="dokumen"><mxGeometry y="55" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="dk3" value="     nama_dokumen : VARCHAR(100)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="dokumen"><mxGeometry y="80" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="dk4" value="     file_dokumen : TEXT" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="dokumen"><mxGeometry y="105" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="dk5" value="     tanggal_upload : DATETIME" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="dokumen"><mxGeometry y="130" width="200" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: VERIFIKASI ==================== -->
+        <mxCell id="verifikasi" value="VERIFIKASI" style="swimlane;startSize=30;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="780" y="700" width="200" height="195" as="geometry"/></mxCell>
+        <mxCell id="vr1" value="PK  id_verifikasi : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="verifikasi"><mxGeometry y="30" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="vr2" value="FK  id_pengajuan : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="verifikasi"><mxGeometry y="55" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="vr3" value="FK  id_petugas : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="verifikasi"><mxGeometry y="80" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="vr4" value="     tanggal_verifikasi : DATETIME" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="verifikasi"><mxGeometry y="105" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="vr5" value="     hasil : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize:10;" vertex="1" parent="verifikasi"><mxGeometry y="130" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="vr6" value="     catatan : TEXT" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="verifikasi"><mxGeometry y="155" width="200" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: SURAT ==================== -->
+        <mxCell id="surat" value="SURAT" style="swimlane;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1100" y="700" width="200" height="170" as="geometry"/></mxCell>
+        <mxCell id="sr1" value="PK  id_surat : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="surat"><mxGeometry y="30" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="sr2" value="FK  id_pengajuan : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="surat"><mxGeometry y="55" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="sr3" value="     nomor_surat : VARCHAR(100)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="surat"><mxGeometry y="80" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="sr4" value="     tanggal_surat : DATETIME" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="surat"><mxGeometry y="105" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="sr5" value="     file_surat : TEXT" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="surat"><mxGeometry y="130" width="200" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== ENTITY: NOTIFIKASI ==================== -->
+        <mxCell id="notifikasi" value="NOTIFIKASI" style="swimlane;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;" vertex="1" parent="1"><mxGeometry x="200" y="700" width="200" height="170" as="geometry"/></mxCell>
+        <mxCell id="nt1" value="PK  id_notifikasi : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="notifikasi"><mxGeometry y="30" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="nt2" value="FK  id_user : VARCHAR(50)" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;fontColor=#0000ff;" vertex="1" parent="notifikasi"><mxGeometry y="55" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="nt3" value="     pesan : TEXT" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="notifikasi"><mxGeometry y="80" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="nt4" value="     tanggal : DATETIME" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="notifikasi"><mxGeometry y="105" width="200" height="25" as="geometry"/></mxCell>
+        <mxCell id="nt5" value="     status_baca : BOOLEAN" style="text;strokeColor=none;fillColor=none;align=left;spacingLeft=6;fontSize=10;" vertex="1" parent="notifikasi"><mxGeometry y="130" width="200" height="25" as="geometry"/></mxCell>
+
+        <!-- ==================== RELATIONSHIPS ==================== -->
+        <!-- USERS (1) --- (0|1) MASYARAKAT : is a -->
+        <mxCell id="r_u_m" value="1" style="endArrow=ERzeroToOne;startArrow=ERmandOne;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" source="users" target="masyarakat" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell>
+        <mxCell id="r_u_m_lbl" value="is a (1:1)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_u_m"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- USERS (1) --- (0|1) PETUGAS : is a -->
+        <mxCell id="r_u_pt" value="1" style="endArrow=ERzeroToOne;startArrow=ERmandOne;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#d79b00;strokeWidth=2;" edge="1" source="users" target="petugas" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell>
+        <mxCell id="r_u_pt_lbl" value="is a (1:1)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_u_pt"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- USERS (1) --- (0|1) KADES : is a -->
+        <mxCell id="r_u_kd" value="1" style="endArrow=ERzeroToOne;startArrow=ERmandOne;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=2;" edge="1" source="users" target="kades" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry></mxCell>
+        <mxCell id="r_u_kd_lbl" value="is a (1:1)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_u_kd"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- USERS (1) --- (0:N) NOTIFIKASI : receives -->
+        <mxCell id="r_u_nt" value="1" style="endArrow=ERmanyToOne;startArrow=ERmandOne;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=2;" edge="1" source="users" target="notifikasi" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_u_nt_lbl" value="receives (1:N)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_u_nt"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- MASYARAKAT (1) --- (0:N) PENGAJUAN : submits -->
+        <mxCell id="r_m_pg" value="1" style="endArrow=ERmanyToOne;startArrow=ERmandOne;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#82b366;strokeWidth=2;" edge="1" source="masyarakat" target="pengajuan" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_m_pg_lbl" value="submits (1:N)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_m_pg"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- JENIS_PELAYANAN (1) --- (0:N) PENGAJUAN : categorizes -->
+        <mxCell id="r_jp_pg" value="1" style="endArrow=ERmanyToOne;startArrow=ERmandOne;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;strokeColor=#9673a6;strokeWidth=2;" edge="1" source="jenis" target="pengajuan" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_jp_pg_lbl" value="categorizes (1:N)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_jp_pg"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- PENGAJUAN (1) --- (1:N) DOKUMEN : contains -->
+        <mxCell id="r_pg_dk" value="1" style="endArrow=ERmanyToOne;startArrow=ERmandOne;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" source="pengajuan" target="dokumen" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_pg_dk_lbl" value="contains (1:N)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_pg_dk"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- PENGAJUAN (1) --- (0:N) VERIFIKASI : undergoes -->
+        <mxCell id="r_pg_vr" value="1" style="endArrow=ERmanyToOne;startArrow=ERmandOne;exitX=0.7;exitY=1;exitDx=0;exitDy=0;entryX=0.3;entryY=0;entryDx=0;entryDy=0;strokeColor=#d6b656;strokeWidth=2;" edge="1" source="pengajuan" target="verifikasi" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_pg_vr_lbl" value="undergoes (1:N)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_pg_vr"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- PENGAJUAN (1) --- (0:1) SURAT : generates -->
+        <mxCell id="r_pg_sr" value="1" style="endArrow=ERzeroToOne;startArrow=ERmandOne;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.3;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;strokeWidth=2;" edge="1" source="pengajuan" target="surat" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_pg_sr_lbl" value="generates (1:1)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_pg_sr"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- PETUGAS (1) --- (0:N) VERIFIKASI : conducts -->
+        <mxCell id="r_pt_vr" value="1" style="endArrow=ERmanyToOne;startArrow=ERmandOne;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#d79b00;strokeWidth=2;" edge="1" source="petugas" target="verifikasi" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_pt_vr_lbl" value="conducts (1:N)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_pt_vr"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- KADES (1) --- (0:N) SURAT : approves -->
+        <mxCell id="r_kd_sr" value="1" style="endArrow=ERmanyToOne;startArrow=ERmandOne;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=2;" edge="1" source="kades" target="surat" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_kd_sr_lbl" value="approves (1:N)" style="edgeLabel;fontSize=9;fontStyle=2;" vertex="1" connectable="0" parent="r_kd_sr"><mxGeometry relative="0.5" as="geometry"/></mxCell>
+
+        <!-- LEGEND -->
+        <mxCell id="leg_ttl" value="KETERANGAN RELASI:" style="text;html=1;fontStyle=1;fontSize=10;" vertex="1" parent="1"><mxGeometry x="30" y="1100" width="160" height="20" as="geometry"/></mxCell>
+        <mxCell id="leg1" value="PK = Primary Key" style="text;html=1;fontSize=9;fontStyle=1;fontColor=#990000;" vertex="1" parent="1"><mxGeometry x="30" y="1125" width="150" height="20" as="geometry"/></mxCell>
+        <mxCell id="leg2" value="FK = Foreign Key (biru)" style="text;html=1;fontSize=9;fontStyle=2;fontColor=#0000ff;" vertex="1" parent="1"><mxGeometry x="30" y="1145" width="150" height="20" as="geometry"/></mxCell>
+        <mxCell id="leg3" value="||—|{  =  One to Many (1:N)" style="text;html=1;fontSize=9;" vertex="1" parent="1"><mxGeometry x="200" y="1125" width="200" height="20" as="geometry"/></mxCell>
+        <mxCell id="leg4" value="||—o|  =  One to One (1:1)" style="text;html=1;fontSize=9;" vertex="1" parent="1"><mxGeometry x="200" y="1145" width="200" height="20" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

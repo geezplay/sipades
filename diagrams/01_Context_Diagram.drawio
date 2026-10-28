@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-10-02T10:35:00.000Z" agent="Antigravity" version="21.0.0" type="device">
+  <diagram id="context_diagram" name="Context Diagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="c_title" value="CONTEXT DIAGRAM (DFD LEVEL 0)&#10;SISTEM INFORMASI PELAYANAN ADMINISTRASI DESA/KELURAHAN (SIPADES)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#0F2942;" vertex="1" parent="1">
+          <mxGeometry x="350" y="30" width="700" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- System Center Process (Circle) -->
+        <mxCell id="sys_center" value="SISTEM INFORMASI&#10;PELAYANAN ADMINISTRASI&#10;DESA / KELURAHAN&#10;(SIPADES)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#0F2942;fontColor=#FFFFFF;fontStyle=1;fontSize=14;shadow=1;strokeColor=#0F2942;" vertex="1" parent="1">
+          <mxGeometry x="540" y="350" width="220" height="220" as="geometry" />
+        </mxCell>
+
+        <!-- Entity 1: MASYARAKAT (Top Left) -->
+        <mxCell id="ent_masyarakat" value="MASYARAKAT&#10;(Pemohon)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0284C7;fontColor=#FFFFFF;fontStyle=1;fontSize=13;shadow=1;strokeColor=#0284C7;" vertex="1" parent="1">
+          <mxGeometry x="120" y="150" width="180" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Entity 2: PETUGAS (Bottom Left) -->
+        <mxCell id="ent_petugas" value="PETUGAS&#10;ADMINISTRASI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D9488;fontColor=#FFFFFF;fontStyle=1;fontSize=13;shadow=1;strokeColor=#0D9488;" vertex="1" parent="1">
+          <mxGeometry x="120" y="660" width="180" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Entity 3: KEPALA DESA (Top Right) -->
+        <mxCell id="ent_kades" value="KEPALA DESA / LURAH&#10;(Pimpinan)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D97706;fontColor=#FFFFFF;fontStyle=1;fontSize=13;shadow=1;strokeColor=#D97706;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="150" width="180" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Entity 4: ADMIN (Bottom Right) -->
+        <mxCell id="ent_admin" value="ADMINISTRATOR&#10;SYSTEM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7C3AED;fontColor=#FFFFFF;fontStyle=1;fontSize=13;shadow=1;strokeColor=#7C3AED;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="660" width="180" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Flows: Masyarakat -> System -->
+        <mxCell id="flow_m_in" value="Data Registrasi, Profil, Pengajuan, Dokumen" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0284C7;strokeWidth=2;fontSize=11;fontColor=#0284C7;fontStyle=1;" edge="1" parent="1" source="ent_masyarakat" target="sys_center">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Flows: System -> Masyarakat -->
+        <mxCell id="flow_m_out" value="Info Pelayanan, Status, Revisi, File Surat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0284C7;strokeWidth=2;fontSize=11;fontColor=#0284C7;fontStyle=1;" edge="1" parent="1" source="sys_center" target="ent_masyarakat">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="270" />
+              <mxPoint x="270" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Flows: Petugas -> System -->
+        <mxCell id="flow_p_in" value="Hasil Pemeriksaan, Catatan Revisi, Verifikasi, Data Surat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0D9488;strokeWidth=2;fontSize=11;fontColor=#0D9488;fontStyle=1;" edge="1" parent="1" source="ent_petugas" target="sys_center">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Flows: System -> Petugas -->
+        <mxCell id="flow_p_out" value="Data Pengajuan, Dokumen Pemohon, Info Masyarakat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#0D9488;strokeWidth=2;fontSize=11;fontColor=#0D9488;fontStyle=1;" edge="1" parent="1" source="sys_center" target="ent_petugas">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="630" />
+              <mxPoint x="270" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Flows: Kades -> System -->
+        <mxCell id="flow_k_in" value="Persetujuan (Approval / TTD), Penolakan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#D97706;strokeWidth=2;fontSize=11;fontColor=#D97706;fontStyle=1;" edge="1" parent="1" source="ent_kades" target="sys_center">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1090" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Flows: System -> Kades -->
+        <mxCell id="flow_k_out" value="Data Terverifikasi, Laporan Pelayanan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#D97706;strokeWidth=2;fontSize=11;fontColor=#D97706;fontStyle=1;" edge="1" parent="1" source="sys_center" target="ent_kades">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="270" />
+              <mxPoint x="1030" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Flows: Admin -> System -->
+        <mxCell id="flow_a_in" value="Data User, Data Pelayanan, System Settings" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7C3AED;strokeWidth=2;fontSize=11;fontColor=#7C3AED;fontStyle=1;" edge="1" parent="1" source="ent_admin" target="sys_center">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1090" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Flows: System -> Admin -->
+        <mxCell id="flow_a_out" value="Data Pengguna, Data Layanan, Audit Log / Laporan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#7C3AED;strokeWidth=2;fontSize=11;fontColor=#7C3AED;fontStyle=1;" edge="1" parent="1" source="sys_center" target="ent_admin">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="630" />
+              <mxPoint x="1030" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

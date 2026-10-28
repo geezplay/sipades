@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" modified="2026-10-15T07:00:00.000Z" agent="Antigravity-IDE" version="21.0.0">
+  <diagram name="DFD Level 2 - Proses 3.0" id="dfd2-sipades">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" pageWidth="1100" pageHeight="900">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+
+        <!-- TITLE -->
+        <mxCell id="ttl" value="DFD LEVEL 2 — RINCIAN PROSES 3.0: PENGAJUAN PELAYANAN" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=15;fontStyle=1;fontColor=#1e3a5f;" vertex="1" parent="1"><mxGeometry x="100" y="20" width="900" height="35" as="geometry"/></mxCell>
+        <mxCell id="sub" value="Sub-proses dari Proses 3.0 Pengajuan Pelayanan" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=11;fontColor=#666;" vertex="1" parent="1"><mxGeometry x="100" y="52" width="900" height="25" as="geometry"/></mxCell>
+
+        <!-- EXTERNAL ENTITY -->
+        <mxCell id="ent_m" value="MASYARAKAT" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="50" y="400" width="140" height="55" as="geometry"/></mxCell>
+
+        <!-- DATA STORES -->
+        <mxCell id="ds5" value="D5: JENIS PELAYANAN" style="shape=mxgraph.flowchart.stored_data;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="800" y="120" width="180" height="40" as="geometry"/></mxCell>
+        <mxCell id="ds6" value="D6: PENGAJUAN" style="shape=mxgraph.flowchart.stored_data;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="800" y="580" width="180" height="40" as="geometry"/></mxCell>
+        <mxCell id="ds7" value="D7: DOKUMEN" style="shape=mxgraph.flowchart.stored_data;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="800" y="680" width="180" height="40" as="geometry"/></mxCell>
+        <mxCell id="ds10" value="D10: NOTIFIKASI" style="shape=mxgraph.flowchart.stored_data;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="800" y="780" width="180" height="40" as="geometry"/></mxCell>
+
+        <!-- SUB-PROCESSES -->
+        <mxCell id="p31" value="3.1&#xa;Pilih Jenis&#xa;Pelayanan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="350" y="90" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="p32" value="3.2&#xa;Isi Formulir&#xa;Online" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="350" y="230" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="p33" value="3.3&#xa;Upload&#xa;Dokumen" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="350" y="370" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="p34" value="3.4&#xa;Validasi&#xa;Data Sistem" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="350" y="510" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="p35" value="3.5&#xa;Simpan&#xa;Pengajuan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="550" y="570" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="p36" value="3.6&#xa;Kirim &amp;&#xa;Notifikasi" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="550" y="720" width="130" height="90" as="geometry"/></mxCell>
+
+        <!-- EDGES: Entity → Sub-Process -->
+        <mxCell id="em_p31" value="1. Pilih Jenis Surat" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#82b366;" edge="1" source="ent_m" target="p31" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="120" y="135"/></Array></mxGeometry></mxCell>
+        <mxCell id="em_p32" value="2. Input Data Form" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#82b366;" edge="1" source="ent_m" target="p32" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="120" y="275"/></Array></mxGeometry></mxCell>
+        <mxCell id="em_p33" value="3. Unggah Berkas" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#82b366;" edge="1" source="ent_m" target="p33" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- EDGES: Data Store → Sub-Process -->
+        <mxCell id="eds5_p31" value="Tampilkan Syarat &amp; Form" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#d6b656;" edge="1" source="ds5" target="p31" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- EDGES: Between Sub-Processes -->
+        <mxCell id="ep31_p32" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="p31" target="p32" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep32_p33" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="p32" target="p33" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep33_p34" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="p33" target="p34" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep34_fail" value="Gagal / Tidak Lengkap" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#b85450;" edge="1" source="p34" target="ent_m" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="220" y="555"/><mxPoint x="220" y="427"/></Array></mxGeometry></mxCell>
+        <mxCell id="ep34_p35" value="4. Data Valid &amp; Lengkap" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#82b366;" edge="1" source="p34" target="p35" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep35_p36" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="p35" target="p36" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- EDGES: Sub-Process → Data Store -->
+        <mxCell id="ep35_ds6" value="Write Data Pengajuan" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#d6b656;" edge="1" source="p35" target="ds6" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep35_ds7" value="Write File Berkas" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#d6b656;" edge="1" source="p35" target="ds7" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ep36_ds6" value="Update Status: DIAJUKAN" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#d6b656;" edge="1" source="p36" target="ds6" parent="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="680" y="765"/><mxPoint x="850" y="765"/><mxPoint x="850" y="620"/></Array></mxGeometry></mxCell>
+        <mxCell id="ep36_ds10" value="Push Notifikasi ke Petugas" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;strokeColor=#d6b656;" edge="1" source="p36" target="ds10" parent="1"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- SUB-PROCESS DESCRIPTIONS -->
+        <mxCell id="desc_31" value="Pemohon memilih kategori surat (SKD, SKU, SKTM, dll.)" style="text;html=1;strokeColor=none;fillColor=#f9f9f9;border=1px solid #ddd;align=left;fontSize=9;fontColor=#666;" vertex="1" parent="1"><mxGeometry x="230" y="100" width="100" height="40" as="geometry"/></mxCell>
+        <mxCell id="desc_32" value="Isi data form dinamis sesuai jenis surat terpilih" style="text;html=1;strokeColor=none;fillColor=#f9f9f9;align=left;fontSize=9;fontColor=#666;" vertex="1" parent="1"><mxGeometry x="230" y="240" width="100" height="40" as="geometry"/></mxCell>
+        <mxCell id="desc_33" value="Upload KTP, KK, Pasfoto, Surat RT/RW (JPG/PNG/PDF)" style="text;html=1;strokeColor=none;fillColor=#f9f9f9;align=left;fontSize=9;fontColor=#666;" vertex="1" parent="1"><mxGeometry x="230" y="380" width="100" height="40" as="geometry"/></mxCell>
+        <mxCell id="desc_34" value="Sistem cek kolom wajib tidak kosong &amp; format file valid" style="text;html=1;strokeColor=none;fillColor=#f9f9f9;align=left;fontSize=9;fontColor=#666;" vertex="1" parent="1"><mxGeometry x="230" y="520" width="100" height="40" as="geometry"/></mxCell>
+        <mxCell id="desc_35" value="Simpan transaksi pengajuan &amp; file ke database" style="text;html=1;strokeColor=none;fillColor=#f9f9f9;align=left;fontSize=9;fontColor=#666;" vertex="1" parent="1"><mxGeometry x="700" y="575" width="80" height="40" as="geometry"/></mxCell>
+        <mxCell id="desc_36" value="Update status DIAJUKAN &amp; push notif ke Petugas" style="text;html=1;strokeColor=none;fillColor=#f9f9f9;align=left;fontSize=9;fontColor=#666;" vertex="1" parent="1"><mxGeometry x="700" y="730" width="80" height="40" as="geometry"/></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
