@@ -284,7 +284,7 @@
                     Pengajuan ini telah disetujui Kepala Desa. Lengkapi nomor surat kedinasan berikut untuk mengompilasi surat PDF dan menghasilkan QR Code keabsahan publik.
                 </p>
 
-                <form action="{{ Route::has('petugas.pengajuan.proses') ? route('petugas.pengajuan.proses', $pengajuan->id_pengajuan) : (Route::has('petugas.proses-surat') ? route('petugas.proses-surat', $pengajuan->id_pengajuan) : url('/petugas/pengajuan/' . $pengajuan->id_pengajuan . '/proses-surat')) }}" method="POST">
+                <form action="{{ Route::has('pengajuan.selesai') ? route('pengajuan.selesai', $pengajuan->id_pengajuan) : (Route::has('surat.generate') ? route('surat.generate', $pengajuan->id_pengajuan) : url('/petugas/pengajuan/' . $pengajuan->id_pengajuan . '/selesai')) }}" method="POST">
                     @csrf
 
                     @php
