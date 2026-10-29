@@ -71,6 +71,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('/users', [AdminController::class, 'users'])->name('users');
         Route::post('/users', [AdminController::class, 'storeUser'])->name('users.store');
+        Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('users.update');
+        Route::delete('/users/{id}', [AdminController::class, 'destroyUser'])->name('users.destroy');
         Route::get('/services', [AdminController::class, 'services'])->name('services');
     });
 });

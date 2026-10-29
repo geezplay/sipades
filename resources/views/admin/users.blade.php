@@ -59,11 +59,11 @@
                     <tr>
                         <th>Nama Pengguna</th>
                         <th>Alamat Email</th>
-                        <th style="width: 140px;">Peran (Role)</th>
+                        <th style="width: 130px;">Peran (Role)</th>
                         <th>Informasi Tambahan</th>
-                        <th style="width: 150px;">Tgl Registrasi</th>
+                        <th style="width: 120px;">Tgl Registrasi</th>
+                        <th style="width: 110px; text-align: center;">Aksi</th>
                     </tr>
-                </thead>
                 <tbody>
                     @php
                         $userQuery = \App\Models\User::with(['masyarakat', 'petugas', 'kepalaDesa']);
@@ -105,10 +105,43 @@
                             <td style="font-size: 0.82rem; color: var(--text-muted);">
                                 {{ \Carbon\Carbon::parse($user->created_at)->translatedFormat('d M Y') }}
                             </td>
+                            <td style="text-align: center;">
+                                <div style="display: inline-flex; gap: 0.35rem; align-items: center; justify-content: center;">
+                                    <!-- Tombol Edit -->
+                                    <button type="button" 
+                                            class="btn btn-outline btn-sm" 
+                                            title="Edit Pengguna"
+                                            onclick='openEditUserModal(@json([
+                                                "id" => $user->id_user,
+                                                "nama" => $user->nama,
+                                                "email" => $user->email,
+                                                "role" => $user->role,
+                                                "jabatan" => $user->role === "petugas" ? ($user->petugas->jabatan ?? "") : ($user->role === "kepala" ? ($user->kepalaDesa->jabatan ?? "") : ""),
+                                                "nip" => $user->role === "kepala" ? ($user->kepalaDesa->nip ?? "") : "",
+                                                "nik" => $user->role === "masyarakat" ? ($user->masyarakat->nik ?? "") : "",
+                                                "no_hp" => $user->role === "masyarakat" ? ($user->masyarakat->no_hp ?? "") : "",
+                                                "alamat" => $user->role === "masyarakat" ? ($user->masyarakat->alamat ?? "") : "",
+                                            ]))'
+                                            style="padding: 0.3rem 0.55rem; font-size: 0.78rem; border-color: #cbd5e1; color: var(--header-navy);">
+                                        <i class="fas fa-pen-to-square"></i>
+                                    </button>
+
+                                    @if($user->id_user !== auth()->id())
+                                        <!-- Tombol Hapus -->
+                                        <button type="button" 
+                                                class="btn btn-danger btn-sm" 
+                                                title="Hapus Pengguna"
+                                                onclick="openDeleteUserModal('{{ $user->id_user }}', '{{ addslashes($user->nama) }}', '{{ $user->email }}', '{{ strtoupper($user->role) }}')"
+                                                style="padding: 0.3rem 0.55rem; font-size: 0.78rem; background: #dc2626; border-color: #dc2626; color: #ffffff;">
+                                            <i class="fas fa-trash-can"></i>
+                                        </button>
+                                    @endif
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
+                            <td colspan="6" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
                                 Tidak ada data pengguna yang cocok.
                             </td>
                         </tr>
@@ -201,6 +234,134 @@
         </form>
     </div>
 </div>
+<!-- Modal Edit Pengguna -->
+<div class="modal-overlay" id="editUserModal" style="display: none; align-items: center; justify-content: center; z-index: 2000;">
+    <div class="modal" style="width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto;">
+        <div class="modal-header">
+            <h3 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: var(--header-navy);">
+                <i class="fas fa-pen-to-square" style="color: var(--accent-primary); margin-right: 0.4rem;"></i>
+                Edit Data Pengguna
+            </h3>
+            <button class="modal-close" onclick="closeEditUserModal()">&times;</button>
+        </div>
+        <form method="POST" id="editUserForm" action="">
+            @csrf
+            @method('PUT')
+            <div class="modal-body" style="padding: 1.25rem;">
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                        Nama Lengkap <span style="color: #dc2626;">*</span>
+                    </label>
+                    <input type="text" name="nama" id="edit_nama" class="form-control" required placeholder="Contoh: Ahmad Yani">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                        Alamat Email <span style="color: #dc2626;">*</span>
+                    </label>
+                    <input type="email" name="email" id="edit_email" class="form-control" required placeholder="nama@sipades.go.id">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                        Peran (Role) <span style="color: #dc2626;">*</span>
+                    </label>
+                    <select name="role" id="edit_role" class="form-control" required onchange="handleEditRoleChange(this.value)">
+                        <option value="petugas">Petugas Pelayanan</option>
+                        <option value="kepala">Kepala Desa / Lurah</option>
+                        <option value="admin">Administrator</option>
+                        <option value="masyarakat">Masyarakat / Warga</option>
+                    </select>
+                </div>
+
+                <!-- Input Khusus Role Petugas / Kepala -->
+                <div class="form-group" id="edit_jabatanField" style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                        Jabatan Kedinasan
+                    </label>
+                    <input type="text" name="jabatan" id="edit_jabatan" class="form-control" placeholder="Contoh: Kasi Pelayanan Umum">
+                </div>
+
+                <!-- Input NIP Khusus Kepala Desa -->
+                <div class="form-group" id="edit_nipField" style="display: none; margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                        Nomor Induk Pegawai (NIP)
+                    </label>
+                    <input type="text" name="nip" id="edit_nip" class="form-control" placeholder="Contoh: 19750812 200212 1 003">
+                </div>
+
+                <!-- Input Khusus Role Masyarakat -->
+                <div id="edit_masyarakatFields" style="display: none;">
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                            NIK (16 Digit) <span style="color: #dc2626;">*</span>
+                        </label>
+                        <input type="text" name="nik" id="edit_nik" class="form-control" maxlength="16" placeholder="Contoh: 3201123456780001">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                            Nomor WhatsApp / HP
+                        </label>
+                        <input type="text" name="no_hp" id="edit_no_hp" class="form-control" placeholder="Contoh: 081234567890">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                            Alamat Tempat Tinggal
+                        </label>
+                        <textarea name="alamat" id="edit_alamat" class="form-control" rows="2" placeholder="Contoh: Dusun Sukamaju RT 01/RW 02"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0.5rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                        Ubah Kata Sandi <span style="font-weight: 400; color: var(--text-muted);">(Kosongkan bila tidak diubah)</span>
+                    </label>
+                    <input type="password" name="password" id="edit_password" class="form-control" placeholder="Minimal 8 karakter" minlength="6">
+                </div>
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 0.5rem; padding: 1rem 1.25rem;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="closeEditUserModal()">Batal</button>
+                <button type="submit" class="btn btn-primary btn-sm">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Hapus Pengguna -->
+<div class="modal-overlay" id="deleteUserModal" style="display: none; align-items: center; justify-content: center; z-index: 2000;">
+    <div class="modal" style="width: 100%; max-width: 440px;">
+        <div class="modal-header" style="border-bottom: 1px solid #fee2e2; background: #fff5f5;">
+            <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #dc2626;">
+                <i class="fas fa-triangle-exclamation" style="margin-right: 0.4rem;"></i>
+                Konfirmasi Hapus Pengguna
+            </h3>
+            <button class="modal-close" onclick="closeDeleteUserModal()">&times;</button>
+        </div>
+        <form method="POST" id="deleteUserForm" action="">
+            @csrf
+            @method('DELETE')
+            <div class="modal-body" style="padding: 1.25rem;">
+                <p style="margin: 0 0 0.75rem 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">
+                    Apakah Anda yakin ingin menghapus pengguna ini dari sistem?
+                </p>
+                <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; padding: 0.85rem; font-size: 0.85rem;">
+                    <div><strong style="color: var(--header-navy);">Nama:</strong> <span id="del_user_nama">-</span></div>
+                    <div><strong style="color: var(--header-navy);">Email:</strong> <span id="del_user_email" style="font-family: monospace;">-</span></div>
+                    <div><strong style="color: var(--header-navy);">Peran:</strong> <span id="del_user_role" class="badge badge-secondary" style="font-size: 0.75rem;">-</span></div>
+                </div>
+                <p style="margin: 0.75rem 0 0 0; font-size: 0.8rem; color: #dc2626;">
+                    <i class="fas fa-circle-info"></i> Tindakan ini tidak dapat dibatalkan.
+                </p>
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 0.5rem; padding: 1rem 1.25rem;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="closeDeleteUserModal()">Batal</button>
+                <button type="submit" class="btn btn-danger btn-sm" style="background: #dc2626; border-color: #dc2626; color: #ffffff;">
+                    <i class="fas fa-trash-can"></i> Ya, Hapus Pengguna
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <script>
     function toggleAddUserModal() {
@@ -226,6 +387,68 @@
             mFields.style.display = 'none';
             nikInput.removeAttribute('required');
         }
+    }
+
+    function handleEditRoleChange(role) {
+        const jField = document.getElementById('edit_jabatanField');
+        const nipField = document.getElementById('edit_nipField');
+        const mFields = document.getElementById('edit_masyarakatFields');
+        const nikInput = document.getElementById('edit_nik');
+
+        if (role === 'petugas') {
+            jField.style.display = 'block';
+            nipField.style.display = 'none';
+            mFields.style.display = 'none';
+            nikInput.removeAttribute('required');
+        } else if (role === 'kepala') {
+            jField.style.display = 'block';
+            nipField.style.display = 'block';
+            mFields.style.display = 'none';
+            nikInput.removeAttribute('required');
+        } else if (role === 'masyarakat') {
+            jField.style.display = 'none';
+            nipField.style.display = 'none';
+            mFields.style.display = 'block';
+            nikInput.setAttribute('required', 'required');
+        } else {
+            jField.style.display = 'none';
+            nipField.style.display = 'none';
+            mFields.style.display = 'none';
+            nikInput.removeAttribute('required');
+        }
+    }
+
+    function openEditUserModal(user) {
+        document.getElementById('editUserForm').action = '/admin/users/' + user.id;
+        document.getElementById('edit_nama').value = user.nama || '';
+        document.getElementById('edit_email').value = user.email || '';
+        document.getElementById('edit_role').value = user.role || 'masyarakat';
+        document.getElementById('edit_jabatan').value = user.jabatan || '';
+        document.getElementById('edit_nip').value = user.nip || '';
+        document.getElementById('edit_nik').value = user.nik || '';
+        document.getElementById('edit_no_hp').value = user.no_hp || '';
+        document.getElementById('edit_alamat').value = user.alamat || '';
+        document.getElementById('edit_password').value = '';
+
+        handleEditRoleChange(user.role);
+
+        document.getElementById('editUserModal').style.display = 'flex';
+    }
+
+    function closeEditUserModal() {
+        document.getElementById('editUserModal').style.display = 'none';
+    }
+
+    function openDeleteUserModal(id, nama, email, role) {
+        document.getElementById('deleteUserForm').action = '/admin/users/' + id;
+        document.getElementById('del_user_nama').innerText = nama;
+        document.getElementById('del_user_email').innerText = email;
+        document.getElementById('del_user_role').innerText = role;
+        document.getElementById('deleteUserModal').style.display = 'flex';
+    }
+
+    function closeDeleteUserModal() {
+        document.getElementById('deleteUserModal').style.display = 'none';
     }
 
     function filterUsers() {

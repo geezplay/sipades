@@ -192,5 +192,36 @@ class SipadesEndToEndWorkflowTest extends TestCase
         $adminCreateResponse->assertRedirect('/admin/users');
         $this->assertDatabaseHas('users', ['email' => "warga.admin.{$randAdmin}@sipades.go.id", 'role' => 'masyarakat']);
         $this->assertDatabaseHas('masyarakat', ['nik' => $nikAdmin]);
+
+        $createdUser = User::where('email', "warga.admin.{$randAdmin}@sipades.go.id")->firstOrFail();
+
+        // 3. Admin memperbarui (Update) data user
+        $newNik = '3203' . rand(100000000000, 999999999999);
+        $updateResponse = $this->put('/admin/users/' . $createdUser->id_user, [
+            'nama' => 'Warga Diperbarui ' . $randAdmin,
+            'email' => "warga.updated.{$randAdmin}@sipades.go.id",
+            'role' => 'masyarakat',
+            'nik' => $newNik,
+            'no_hp' => '087711223344',
+            'alamat' => 'Alamat baru hasil update',
+        ]);
+
+        $updateResponse->assertRedirect('/admin/users');
+        $this->assertDatabaseHas('users', [
+            'id_user' => $createdUser->id_user,
+            'nama' => 'Warga Diperbarui ' . $randAdmin,
+            'email' => "warga.updated.{$randAdmin}@sipades.go.id",
+        ]);
+        $this->assertDatabaseHas('masyarakat', [
+            'id_user' => $createdUser->id_user,
+            'nik' => $newNik,
+            'alamat' => 'Alamat baru hasil update',
+        ]);
+
+        // 4. Admin menghapus (Delete) user
+        $deleteResponse = $this->delete('/admin/users/' . $createdUser->id_user);
+        $deleteResponse->assertRedirect('/admin/users');
+        $this->assertDatabaseMissing('users', ['id_user' => $createdUser->id_user]);
+        $this->assertDatabaseMissing('masyarakat', ['id_user' => $createdUser->id_user]);
     }
 }
