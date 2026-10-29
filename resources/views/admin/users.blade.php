@@ -166,6 +166,27 @@
                     <input type="text" name="jabatan" class="form-control" placeholder="Contoh: Kasi Pelayanan Umum">
                 </div>
 
+                <!-- Input Khusus Role Masyarakat -->
+                <div id="masyarakatFields" style="display: none;">
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                            NIK (16 Digit) <span style="color: #dc2626;">*</span>
+                        </label>
+                        <input type="text" name="nik" id="nikInput" class="form-control" maxlength="16" placeholder="Contoh: 3201123456780001">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                            Nomor WhatsApp / HP
+                        </label>
+                        <input type="text" name="no_hp" class="form-control" placeholder="Contoh: 081234567890">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
+                            Alamat Tempat Tinggal
+                        </label>
+                        <textarea name="alamat" class="form-control" rows="2" placeholder="Contoh: Dusun Sukamaju RT 01/RW 02"></textarea>
+                    </div>
+                </div>
                 <div class="form-group" style="margin-bottom: 1.25rem;">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
                         Kata Sandi Awal <span style="color: #dc2626;">*</span>
@@ -189,10 +210,21 @@
 
     function handleRoleChange(role) {
         const jField = document.getElementById('jabatanField');
+        const mFields = document.getElementById('masyarakatFields');
+        const nikInput = document.getElementById('nikInput');
+
         if (role === 'petugas' || role === 'kepala') {
             jField.style.display = 'block';
+            mFields.style.display = 'none';
+            nikInput.removeAttribute('required');
+        } else if (role === 'masyarakat') {
+            jField.style.display = 'none';
+            mFields.style.display = 'block';
+            nikInput.setAttribute('required', 'required');
         } else {
             jField.style.display = 'none';
+            mFields.style.display = 'none';
+            nikInput.removeAttribute('required');
         }
     }
 

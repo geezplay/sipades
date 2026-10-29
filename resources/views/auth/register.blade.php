@@ -83,11 +83,32 @@
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
         }
-
         @media (max-width: 576px) {
             .form-row {
                 grid-template-columns: 1fr;
             }
+        }
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-toggle-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #64748b;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            transition: color 0.15s ease;
+        }
+        .password-toggle-btn:hover {
+            color: var(--accent-primary);
         }
     </style>
 </head>
@@ -207,14 +228,23 @@
                         <label class="form-label" for="password" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
                             Kata Sandi <span style="color: #dc2626;">*</span>
                         </label>
-                        <input type="password" 
-                               id="password" 
-                               name="password" 
-                               class="form-control" 
-                               placeholder="Min. 8 karakter" 
-                               minlength="6" 
-                               required
-                               style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem;">
+                        <div class="password-wrapper">
+                            <input type="password" 
+                                   id="password" 
+                                   name="password" 
+                                   class="form-control" 
+                                   placeholder="Min. 8 karakter" 
+                                   minlength="8" 
+                                   required
+                                   style="width: 100%; padding: 0.65rem 2.4rem 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem;">
+                            <button type="button" 
+                                    class="password-toggle-btn" 
+                                    onclick="togglePasswordVisibility('password', 'togglePasswordIcon1')" 
+                                    title="Tampilkan / Sembunyikan Sandi"
+                                    aria-label="Tampilkan / Sembunyikan Sandi">
+                                <i class="fas fa-eye" id="togglePasswordIcon1"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Konfirmasi Password -->
@@ -222,14 +252,23 @@
                         <label class="form-label" for="password_confirmation" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--header-navy); margin-bottom: 0.35rem;">
                             Ulangi Sandi <span style="color: #dc2626;">*</span>
                         </label>
-                        <input type="password" 
-                               id="password_confirmation" 
-                               name="password_confirmation" 
-                               class="form-control" 
-                               placeholder="Ulangi kata sandi" 
-                               minlength="6" 
-                               required
-                               style="width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem;">
+                        <div class="password-wrapper">
+                            <input type="password" 
+                                   id="password_confirmation" 
+                                   name="password_confirmation" 
+                                   class="form-control" 
+                                   placeholder="Ulangi kata sandi" 
+                                   minlength="8" 
+                                   required
+                                   style="width: 100%; padding: 0.65rem 2.4rem 0.65rem 0.85rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem;">
+                            <button type="button" 
+                                    class="password-toggle-btn" 
+                                    onclick="togglePasswordVisibility('password_confirmation', 'togglePasswordIcon2')" 
+                                    title="Tampilkan / Sembunyikan Sandi"
+                                    aria-label="Tampilkan / Sembunyikan Sandi">
+                                <i class="fas fa-eye" id="togglePasswordIcon2"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -246,5 +285,23 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function togglePasswordVisibility(fieldId, iconId) {
+            const input = document.getElementById(fieldId);
+            const icon = document.getElementById(iconId);
+            if (!input || !icon) return;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 </html>

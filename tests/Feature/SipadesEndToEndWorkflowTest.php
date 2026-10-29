@@ -150,4 +150,47 @@ class SipadesEndToEndWorkflowTest extends TestCase
         $unauthorizedDownload = $this->get('/surat/' . $surat->id_surat . '/download');
         $unauthorizedDownload->assertStatus(403);
     }
+
+    public function test_masyarakat_registration_and_admin_creation()
+    {
+        $this->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class);
+
+        $rand = rand(1000, 9999);
+        $nik = '3201' . rand(100000000000, 999999999999);
+
+        // 1. Warga mendaftar mandiri via /register
+        $registerResponse = $this->post('/register', [
+            'nama' => 'Warga Pendaftar Baru ' . $rand,
+            'nik' => $nik,
+            'email' => "warga.baru.{$rand}@sipades.go.id",
+            'no_hp' => '08123456' . $rand,
+            'alamat' => 'Jl. Kebon Jeruk RT 01/RW 02',
+            'password' => 'Password123!',
+            'password_confirmation' => 'Password123!',
+        ]);
+
+        $registerResponse->assertRedirect('/warga/dashboard');
+        $this->assertDatabaseHas('users', ['email' => "warga.baru.{$rand}@sipades.go.id", 'role' => 'masyarakat']);
+        $this->assertDatabaseHas('masyarakat', ['nik' => $nik]);
+
+        // 2. Admin membuat akun masyarakat via /admin/users
+        $adminUser = User::where('email', 'admin@sipades.go.id')->firstOrFail();
+        $this->actingAs($adminUser);
+
+        $randAdmin = rand(1000, 9999);
+        $nikAdmin = '3202' . rand(100000000000, 999999999999);
+        $adminCreateResponse = $this->post('/admin/users', [
+            'nama' => 'Warga Dibuat Admin ' . $randAdmin,
+            'email' => "warga.admin.{$randAdmin}@sipades.go.id",
+            'password' => 'Password123!',
+            'role' => 'masyarakat',
+            'nik' => $nikAdmin,
+            'no_hp' => '08219988' . $randAdmin,
+            'alamat' => 'Dusun Karang Anyar No. 12',
+        ]);
+
+        $adminCreateResponse->assertRedirect('/admin/users');
+        $this->assertDatabaseHas('users', ['email' => "warga.admin.{$randAdmin}@sipades.go.id", 'role' => 'masyarakat']);
+        $this->assertDatabaseHas('masyarakat', ['nik' => $nikAdmin]);
+    }
 }

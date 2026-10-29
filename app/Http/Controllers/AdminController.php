@@ -63,7 +63,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Simpan Pengguna Baru (Staf Petugas / Kepala Desa / Admin)
+     * Simpan Pengguna Baru (Masyarakat / Staf Petugas / Kepala Desa / Admin)
      */
     public function storeUser(Request $request)
     {
@@ -71,9 +71,12 @@ class AdminController extends Controller
             'nama' => 'required|string|max:150',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:admin,petugas,kepala',
+            'role' => 'required|in:admin,petugas,kepala,masyarakat',
             'jabatan' => 'nullable|string|max:100',
             'nip' => 'nullable|string|max:30',
+            'nik' => 'nullable|required_if:role,masyarakat|digits:16|unique:masyarakat,nik',
+            'no_hp' => 'nullable|required_if:role,masyarakat|string|max:20',
+            'alamat' => 'nullable|required_if:role,masyarakat|string|max:1000',
         ]);
 
         DB::transaction(function () use ($request) {
@@ -85,7 +88,15 @@ class AdminController extends Controller
                 'role' => $request->role,
             ]);
 
-            if ($request->role === 'petugas') {
+            if ($request->role === 'masyarakat') {
+                Masyarakat::create([
+                    'id_masyarakat' => (string) Str::uuid(),
+                    'id_user' => $user->id_user,
+                    'nik' => $request->nik,
+                    'alamat' => $request->alamat,
+                    'no_hp' => $request->no_hp,
+                ]);
+            } elseif ($request->role === 'petugas') {
                 Petugas::create([
                     'id_petugas' => (string) Str::uuid(),
                     'id_user' => $user->id_user,

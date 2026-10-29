@@ -25,7 +25,33 @@ Dokumen ini memuat data akun resmi pengujian dan operasional sistem SIPADES, hak
 
 ---
 
-## 🔄 Alur Alur Kerja Pengujian End-to-End
+## 📝 Cara Membuat Akun Masyarakat Baru
+
+Tersedia 2 (dua) metode untuk mendaftarkan akun masyarakat ke dalam sistem:
+
+### Metode 1: Pendaftaran Mandiri oleh Warga (Online)
+1. Buka halaman login di [https://sipades.geezplay.site/login](https://sipades.geezplay.site/login) (atau langsung ke [https://sipades.geezplay.site/register](https://sipades.geezplay.site/register)).
+2. Klik tombol **"Buat Akun Masyarakat Baru"** di bawah tombol Masuk.
+3. Lengkapi formulir pendaftaran:
+   - **Nama Lengkap**: Sesuai KTP
+   - **NIK**: 16 digit angka kependudukan valid
+   - **No. WhatsApp / HP**: Kontak aktif pemohon
+   - **Alamat Email**: Email aktif pemohon
+   - **Alamat Tempat Tinggal / RT RW**
+   - **Kata Sandi & Ulangi Sandi** (min. 8 karakter, dilengkapi tombol ikon mata untuk melihat sandi)
+4. Klik **"Selesaikan Pendaftaran"**. Akun langsung aktif dan otomatis masuk ke Dashboard Warga.
+
+### Metode 2: Pembuatan Akun oleh Administrator Desa
+1. Masuk sebagai **Administrator** (`admin@sipades.go.id` / `Admin123!`).
+2. Buka menu **Kelola Pengguna** (`/admin/users`).
+3. Klik tombol **"+ Tambah Pengguna"**.
+4. Pada pilihan **Peran (Role)**, pilih **"Masyarakat / Warga"**.
+5. Formulir akan otomatis menampilkan field khusus masyarakat: **NIK (16 digit)**, **Nomor WhatsApp/HP**, dan **Alamat Tempat Tinggal**.
+6. Masukkan data warga dan kata sandi awal, lalu klik **"Simpan Akun"**.
+
+---
+
+## 🔄 Alur Kerja Pengujian End-to-End
 
 1. **Warga Mengajukan Permohonan**:
    - Masuk sebagai `warga@sipades.go.id` / `Warga123!`.

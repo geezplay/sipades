@@ -192,6 +192,18 @@
                     <i class="fas fa-arrow-right-to-bracket"></i> Masuk
                 </button>
             </form>
+
+            <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: var(--text-secondary);">
+                <span>Belum memiliki akun warga?</span>
+                <div style="margin-top: 0.6rem;">
+                    <a href="{{ Route::has('register') ? route('register') : url('/register') }}" 
+                       style="display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; width: 100%; padding: 0.65rem 1rem; border: 1px solid var(--accent-primary); border-radius: 8px; color: var(--accent-primary); background: #f0f7ff; font-weight: 700; text-decoration: none; font-size: 0.88rem; transition: all 0.15s ease;"
+                       onmouseover="this.style.background='var(--accent-primary)'; this.style.color='#ffffff';"
+                       onmouseout="this.style.background='#f0f7ff'; this.style.color='var(--accent-primary)';">
+                        <i class="fas fa-user-plus"></i> Buat Akun Masyarakat Baru
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
