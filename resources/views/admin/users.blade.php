@@ -107,21 +107,25 @@
                             </td>
                             <td style="text-align: center;">
                                 <div style="display: inline-flex; gap: 0.35rem; align-items: center; justify-content: center;">
+                                    @php
+                                        $userData = [
+                                            'id' => $user->id_user,
+                                            'nama' => $user->nama,
+                                            'email' => $user->email,
+                                            'role' => $user->role,
+                                            'jabatan' => $user->role === 'petugas' ? ($user->petugas->jabatan ?? '') : ($user->role === 'kepala' ? ($user->kepalaDesa->jabatan ?? '') : ''),
+                                            'nip' => $user->role === 'kepala' ? ($user->kepalaDesa->nip ?? '') : '',
+                                            'nik' => $user->role === 'masyarakat' ? ($user->masyarakat->nik ?? '') : '',
+                                            'no_hp' => $user->role === 'masyarakat' ? ($user->masyarakat->no_hp ?? '') : '',
+                                            'alamat' => $user->role === 'masyarakat' ? ($user->masyarakat->alamat ?? '') : '',
+                                        ];
+                                    @endphp
                                     <!-- Tombol Edit -->
                                     <button type="button" 
                                             class="btn btn-outline btn-sm" 
                                             title="Edit Pengguna"
-                                            onclick='openEditUserModal(@json([
-                                                "id" => $user->id_user,
-                                                "nama" => $user->nama,
-                                                "email" => $user->email,
-                                                "role" => $user->role,
-                                                "jabatan" => $user->role === "petugas" ? ($user->petugas->jabatan ?? "") : ($user->role === "kepala" ? ($user->kepalaDesa->jabatan ?? "") : ""),
-                                                "nip" => $user->role === "kepala" ? ($user->kepalaDesa->nip ?? "") : "",
-                                                "nik" => $user->role === "masyarakat" ? ($user->masyarakat->nik ?? "") : "",
-                                                "no_hp" => $user->role === "masyarakat" ? ($user->masyarakat->no_hp ?? "") : "",
-                                                "alamat" => $user->role === "masyarakat" ? ($user->masyarakat->alamat ?? "") : "",
-                                            ]))'
+                                            data-user="{{ json_encode($userData) }}"
+                                            onclick="openEditUserModalFromBtn(this)"
                                             style="padding: 0.3rem 0.55rem; font-size: 0.78rem; border-color: #cbd5e1; color: var(--header-navy);">
                                         <i class="fas fa-pen-to-square"></i>
                                     </button>
@@ -415,6 +419,15 @@
             nipField.style.display = 'none';
             mFields.style.display = 'none';
             nikInput.removeAttribute('required');
+        }
+    }
+
+    function openEditUserModalFromBtn(button) {
+        try {
+            const user = JSON.parse(button.getAttribute('data-user'));
+            openEditUserModal(user);
+        } catch(e) {
+            console.error('Error parsing user data:', e);
         }
     }
 
